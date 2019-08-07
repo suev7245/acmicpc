@@ -1,25 +1,34 @@
 #include <iostream>
+#include <string>
 #include <vector>
-#include <utility>
 #include <algorithm>
 using namespace std;
+
+bool mycompare(string a, string b){
+    if(a.size()<b.size())
+        return true;
+    else if(a.size()>b.size())
+        return false;
+    else
+        return a<b;
+}
 
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int N, x, y;
+    vector<string> v;
+    int N;
     cin>>N;
-
-    vector< pair<int, int> > dot;
+    string temp;
     while(N--){
-        cin>> x>>y;
-        dot.push_back(make_pair(y,x));
+        cin >> temp;
+        if(find(v.begin(),v.end(),temp) == v.end())
+            v.push_back(temp);
     }
-    sort(dot.begin(), dot.end());
+    sort(v.begin(),v.end(), mycompare);
 
-    for(vector< pair<int, int> >::iterator it=dot.begin(); it<dot.end(); it++){
-        cout<< it->second <<" "<< it->first<<"\n";
-    }
+    for(vector<string>::iterator it=v.begin(); it<v.end(); it++)
+        cout<< *it <<"\n";
 }
