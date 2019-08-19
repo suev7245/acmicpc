@@ -1,9 +1,7 @@
-//std::stack에서 pop은 리턴을 안함.
-//top도 empty 체크를 안함 (empty일때 -1리턴같은거 없음 - 바로 오류남
 
 #include <iostream>
 #include <string>
-#include <stack>
+#include <queue>
 #include <algorithm>
 using namespace std;
 
@@ -14,30 +12,35 @@ int main(){
     
     int N, num;
     string op;
-    stack<int> st;
+    queue<int> q;
 
     cin>> N;
     while(N--){
         cin>> op;
         if(op == "push"){
             cin>>num;
-            st.push(num);
+            q.push(num);
         }else if(op == "pop"){
-            if(st.empty()){
+            if(q.empty()){
                 cout<<"-1"<<'\n';
             }else{
-                cout<<st.top()<<'\n';
-                st.pop();
+                cout<<q.front()<<'\n';
+                q.pop();
             }
         }else if(op == "size"){
-            cout<<st.size()<<'\n';
+            cout<<q.size()<<'\n';
         }else if(op == "empty"){
-            cout<<st.empty()<<'\n';
-        }else if(op == "top"){
-            if(st.empty())
+            cout<<q.empty()<<'\n';
+        }else if(op == "front"){
+            if(q.empty())
                 cout<<"-1"<<"\n";
             else
-                cout<<st.top()<<'\n';
+                cout<<q.front()<<'\n';
+        }else if(op == "back"){
+            if(q.empty())
+                cout<<"-1"<<"\n";
+            else
+                cout<<q.back()<<'\n';
         }
     }
     return 0;
