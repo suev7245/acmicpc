@@ -11,8 +11,30 @@ int main(){
 
     bool check=false;
     int max=0, now;
+
+    cin>>now;
+    for(int i=1; i<=now; i++) {st.push(i); v.push_back('+');}
+    st.pop(); v.push_back('-'); 
+    max=now;
+
     while (N--){
         cin>>now;
+
+        // if(st.top()<now){
+        //     for(int i=max+1; i<=now; i++){
+        //         st.push(i); 
+        //         v.push_back('+');
+        //     }
+        //     st.pop();
+        //     v.push_back('-'); 
+        // }else if(st.top()==now){
+        //     st.pop();
+        //     v.push_back('-'); 
+        // }else{
+        //     check=true;
+        //     break;
+        // }
+
         if(max<now){
             for(int i=max+1; i<=now; i++){
                 v.push_back('+');
