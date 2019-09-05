@@ -1,6 +1,5 @@
 /*
-바이러스
-1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 첫째 줄에 출력한다.
+단지번호붙이기
 */
 
 #include <iostream>
@@ -9,16 +8,27 @@
 #include <stack>
 using namespace std;
 
-vector< vector<int> > g;
-vector<bool> visited;
+string map[25];
+bool visited[25][25];
 stack<int> s;
-int cnt;
 
-void dfs(int v){
-    visited[v]=true;
+int n;
+int cnt;
+vector<int> cntarr;
+
+int dx[]={0,0,-1,1};
+int dy[]={1,-1,0,0};
+
+
+void dfs(int x, int y){
+    visited[x][y]=true;
     cnt++;
-    for(vector<int>::iterator it=g[v].begin(); it!=g[v].end(); it++)
-        if(!visited[*it]) dfs(*it);
+    for(int i=0;i<4;i++){
+        if(x+dx[i]<0||x+dx[i]>=n || y+dy[i]<0||y+dy[i]>=n) 
+            continue;
+        if(!visited[x+dx[i]][y+dy[i]] && map[x+dx[i]][y+dy[i]]=='1') 
+            dfs(x+dx[i], y+dy[i]);
+    }
 }
 
 int main(){
@@ -26,21 +36,24 @@ int main(){
     cin.tie(0);
     cout.tie(0);
     
-    int n,m,a,b;
-    cin>>n>>m;
-
-    g.resize(n+1);
-    visited.resize(n+1);
-    fill(visited.begin(), visited.end(),false);
-
-    while(m--){
-        cin>>a>>b;
-        g[a].push_back(b);
-        g[b].push_back(a);
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>map[i];
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if (!visited[i][j] && map[i][j]=='1'){
+                cnt=0;
+                dfs(i,j);
+                cntarr.push_back(cnt);
+            }
+        }
     }
 
-    dfs(1);
-    cout<<cnt-1;
+    cout<<cntarr.size()<<"\n";
+    sort(cntarr.begin(),cntarr.end());
+    for(int i=0;i<cntarr.size();i++)
+        cout<<cntarr[i]<<"\n";
 
     return 0;
 }
